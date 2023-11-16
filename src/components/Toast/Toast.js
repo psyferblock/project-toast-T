@@ -17,22 +17,27 @@ const ICONS_BY_VARIANT = {
   success: CheckCircle,
   error: AlertOctagon,
 };
+function Toast({message,variant,toastRef,handleDismiss,id}) {
 
-function Toast() {
+
+  const toastClass= ICONS_BY_VARIANT[variant]
+  const FeatherTag =  toastClass
+
+ 
   return (
-    <div className={`${styles.toast} ${styles.notice}`}>
+    <div ref={toastRef} className={`${styles.toast} ${styles.notice}`}>
       <div className={styles.iconContainer}>
-        <Info size={24} />
+        <FeatherTag size={24} />
       </div>
       <p className={styles.content}>
-        16 photos have been uploaded
+        {message}
       </p>
-      <button className={styles.closeButton}>
-        <X size={24} />
-        <VisuallyHidden>Dismiss message</VisuallyHidden>
+      <button className={styles.closeButton} onClick={handleDismiss(id)}>
+        <X size={24}  />
+        <VisuallyHidden >Dismiss message</VisuallyHidden>
       </button>
     </div>
   );
 }
 
-export default Toast;
+export default React.forwardRef(Toast);
